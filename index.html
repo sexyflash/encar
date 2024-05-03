@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Auto Focus Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            // 텍스트 필드 선택
+            var inputField = document.querySelector('input[type="text"]');
+
+            // iOS 및 Android에서 포커스 및 키보드 표시를 위한 조건부 논리
+            if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                // iOS
+                inputField.focus();
+                window.focus();
+            } else if (/Android/i.test(navigator.userAgent)) {
+                // Android
+                window.dispatchEvent(new Event('focusin'));
+                window.setTimeout(function() { window.execScript('javascript:window.scrollTo(0,0)'); }, 100);
+            } else {
+                // 기타 플랫폼
+                inputField.focus();
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Encar Auto Focus Example</h1>
+    <p>This example demonstrates how to automatically focus on an input field and show the keyboard when the page loads in a mobile web view.</p>
+    <input type="text" id="myInput" placeholder="Type something..." />
+</body>
+</html>
